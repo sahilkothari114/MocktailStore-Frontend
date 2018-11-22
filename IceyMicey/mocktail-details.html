@@ -91,17 +91,19 @@
 							   		</div><!-- product-review -->
 							   		<div class="add-review" id="add-review" >
 							   			<h2>Add a Review</h2>
-							   			<form>
+							   			<form method="post" id="add-review-form">
 
-							   				<textarea rows="5" placeholder="comment" aria-required="true" autocomplete="off"></textarea>
+							   				<textarea rows="5" placeholder="comment" aria-required="true" autocomplete="off" id="comment"></textarea>
+							   				<input type="number" name="mocktailId" style="visibility: hidden;" id="mocktailId" />
+							   				<input type="number" name="userId" style="visibility: hidden;" id="userId" />
 							   				<div class="row">
 							   					<div class="col-md-6">
 							   						<div class="add-rating">
-							   							<input type="number" required="" placeholder="stars" min="1" max="5" style="border: none; height: inherit; width: inherit; font-size: large;">
+							   							<input type="number" required="" placeholder="stars" min="1" max="5" style="border: none; height: inherit; width: inherit; font-size: large;" id="star">
 							   						</div>
 							   					</div>
 							   					<div class="col-md-6">
-							   						<input type="submit" class="button" value="add review">
+							   						<button type="submit" class="button" >add review</button>
 							   					</div>
 							   				</div>
 							   			</form>
@@ -147,26 +149,10 @@
 	<script src="assets/js/jquery.vide.js"></script>
 	<script src="assets/js/plugins.js"></script>
 	<script src="assets/js/functions.js"></script>
+	<script type="text/javascript" src="assets/js/header.js"></script>
 	<script type="text/javascript">
-		$("#logOut-btn").click(function(){
-			sessionStorage.clear();
-			window.location.replace('/Myapp/IceyMicey/index.html');
-		  });
 
 		$(document).ready(function(){
-					  $("#footer").load("footer.html");
-		  $( "#header" ).load( "header.html" ,function(){
-		  			var email=sessionStorage.getItem("email");
-			var replace = $('#replace');
-			if(email != null){
-				console.log('logOut-btn');
-				replace.html('<a href="signup-login.html">Log Out');
-			}
-			else if(email == null){
-				console.log('signup-login-btn');
-				replace.html('<a href="signup-login.html">Log in');										       					    
-			}
-		  });
 		var averageRating, sum=0, length;
 		var mocktailDetail = JSON.parse(localStorage.getItem("mocktailDetail"));
 		console.log(JSON.stringify(mocktailDetail));
@@ -176,7 +162,9 @@
 		document.getElementById("mocktail-description").innerHTML = mocktailDetail.description;
 		document.getElementById("mocktail-price").innerHTML = mocktailDetail.price;
 		document.getElementById("mocktail-image").src = mocktailDetail.imageUrl;
-
+		document.getElementById("mocktailId").value = mocktailDetail.mocktailId;
+		document.getElementById("userId").value = sessionStorage.getItem("id");
+		var mocktailId = mocktailDetail.mocktailId;
 		length = mocktailDetail.ratings.length;
 		if(length == 0){
 			document.getElementById("mocktail-rating").innerHTML = 0;
@@ -201,7 +189,7 @@
 															<i class="fa fa-star" style="color: #ffb902;"></i>\
 														</span>\
 													</div><!-- product-review-head -->\
-													<p id="comment">'+this.comment+'</p>\
+													<p >'+this.comment+'</p>\
 												</div><!-- product-review-content -->\
 							   				</li><!-- product-review-item -->';
 							   				
@@ -233,6 +221,40 @@
 			document.getElementById("add-review").style.visibility = "hidden";			
 		}
 		});
+
+		$("#add-review-form").submit(function(event)
+                {
+                    event.preventDefault();
+                    
+                    var form = this;
+                    var formData = {}
+
+                    formData["mocktailId"] = parseInt($("#mocktailId").val(),10);
+                    formData["userId"] = parseInt($("#userId").val(),10);
+                    formData["comment"] = $('textarea#comment').val();
+                    formData["star"] = parseInt($("#star").val(),10);
+                    console.log(formData);
+
+                    $.ajax({
+                    type: 'POST',
+                    datatype:'json',
+                    contentType: 'application/json',
+                    url: "http://localhost:8090/mocktail-store/api/v1/rating/add",
+                    data: JSON.stringify(formData),
+
+                success: function(result)
+                { 	
+                	document.getElementById("add-review").style.display = "none";
+					document.getElementById("add-review").style.visibility = "hidden";	
+                },
+                error: function (err) {
+                        
+                        
+                    }
+                });
+                
+                return false;
+            })
 	</script>
 </body>
 

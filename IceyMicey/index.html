@@ -4,7 +4,7 @@
 <head>
 	<meta charset="UTF-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
-	<title>Home | IcyMicey</title>
+	<title>Home | IceyMicey</title>
 	<link rel="stylesheet" href="assets/css/font-awesome.css" />
 	<link rel="stylesheet" href="assets/flaticon/flaticon.css" />
 	<link rel="stylesheet" href="assets/css/lightbox.css" />
@@ -14,9 +14,8 @@
 	<link rel="stylesheet" href="assets/css/responsive.css"/>
 </head>
 <body>
-	<header class="header style-3">
-		<section id="header">	
-		</section>
+	<header class="header style-3" id="header">
+
 	</header><!-- Header end -->
 	<!-- slider -->
 	<section class="slider">
@@ -81,8 +80,8 @@
 				<div class="about-resturent-content-wrapper">
 					<div class="about-resturent-content">
 						<h2>About IcyMicey</h2>
-						<p>Synergistically a conceptualize leveraged intell ectual capital through virtual and the an and Proactiviely initiate low risk highyield a platforms after realtime growth that awesome tently matrix robust methods of empowerment for sticky action itarredibly awesome an envisioneer resourceleveling imperatives and Sytically conceptalize leved intellectual and capital through virtual intellectual that capitall that there an Proctively initiate low risk high yield platforms after realtime a growth strategielly  Conveniently iterate optimal paradigms and reliable technologies.</p>
-						<p>Sytically conceptalize leved intellectual and capital through virtual intellectual that capitall that there an Proctively initiate low risk high yield platforms after realtime a growth strategielly  Conveniently iterate optimal paradigms and reliable technologies.</p>
+						<p>Icey Micey is Non-Alcoholic beverages drink bar on the wheels,  we are more formally known at Ahmedabad where we provide fruits shots like jamun shoot, falsa shots, kiwi shots and shakes like oreo chocolate shakes, KitKat shakes, mango shakes for coffee lovers we provide special cold coffee, chocolate ice coffee, cocktail, various king of mojitos, ice tea, fruit mix and many more please see our menu card We take pride in supporting local Ahmedabad, we purchase hand-picked fresh fruits from a local market and serve you the best quality fruit juice and fruit items.   Be sure to check out our drink menu options for a perfect serving, including non-alcoholic cocktails. Beverage catering is what our professional staff is prepared to knock out of the park for your specific needs!
+</p>
 					</div>
 					<img src="assets/images/about-images/img1.jpg" alt="">
 				</div>
@@ -99,8 +98,7 @@
 				<div class="section-head">
 					<i class="flaticon-cutlery"></i>
 					<h2>our services</h2>
-					<p>Rapidiously plagiarize scalable manufactured products for realtime ramatically 
-					actualize open-source metrics through fully tested vortals.</p>
+					<p>Icey Micey Mocktail Truck is started and located currently in the Ahmedabad of Gujarat state with licensees popping up across the country. </p>
 				</div><!-- section-head -->
 				<div class="service-2-item-wrapper">
 					<div class="col-md-6 col-sm-6">
@@ -110,7 +108,7 @@
 							</div>
 							<div class="service-item-des">
 								<h2>Best Drinks</h2>
-								<p>Synergistically a conceptualize leveraged inirtell ectual Proactively initiate low risk highyield an platforms and after realtime growth that awesome tently </p>
+								<p>We are famous for the various king of mojitos drink like Vergine mojito, cranberries mojito, strawberries mojito, kiwi mojito, an orange mojito. </p>
 								<a href="mocktails.html" class="button">Read More</a>
 							</div><!-- service-item-des -->
 						</div><!-- service3-item -->
@@ -340,27 +338,6 @@
 	<script src="assets/js/jquery.vide.js"></script>
 	<script src="assets/js/plugins.js"></script>
 	<script src="assets/js/functions.js"></script>
-	
-	<script type="text/javascript">
-		$(document).ready(function(){
-		  $("#footer").load("footer.html");
-		  $( "#header" ).load( "header.html" ,function(){
-		  			var email=sessionStorage.getItem("email");
-			var replace = $('#replace');
-			if(email != null){
-				console.log('logOut-btn');
-				replace.html('<a href="signup-login.html">Log Out');
-			}
-			else if(email == null){
-				console.log('signup-login-btn');
-				replace.html('<a href="signup-login.html">Log in');										       					    
-			}
-		  });
-	});
-		$("#logOut-btn").click(function(){
-			sessionStorage.clear();
-			window.location.replace('/Myapp/IceyMicey/index.html');
-		});
-	</script>
+	<script type="text/javascript" src="assets/js/header.js"></script>
 </body>
 </html>

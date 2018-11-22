@@ -1,0 +1,185 @@
+<!DOCTYPE html>
+<html lang="en-US">
+
+<!-- Mirrored from demos.codexcoder.com/labartisan/html/Tomato-HTML/reservation.html by HTTrack Website Copier/3.x [XR&CO'2014], Mon, 12 Nov 2018 11:43:41 GMT -->
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<title>Request Order</title>
+	<link rel="stylesheet" href="assets/css/font-awesome.css" />
+	<link rel="stylesheet" href="assets/flaticon/flaticon.css" />
+	<link rel="stylesheet" href="assets/css/swiper.min.css" />
+	<link rel="stylesheet" href="assets/css/bootstrap.min.css" />
+	<link rel="stylesheet" href="assets/css/style.css"/>
+	<link rel="stylesheet" href="assets/css/responsive.css"/>
+</head>
+<body>
+
+	<!-- Header -->
+	<header class="header style-3" id="header">
+
+	</header><!-- Header end -->
+
+
+
+	<!-- reservation section-->
+	<section class="reservation style-3 section-padding">
+		<div class="container">
+			<div class="row">
+				<div class="section-head">
+					<i class="flaticon-cutlery"></i>
+					<h2>Edit your profile</h2>
+
+				</div><!-- section-head -->
+				<div class="reservation-form">
+					<form method="post" id="editForm">
+
+						<div class="col-md-4 col-sm-6">
+							<div class="single-input">
+								<input class="input-box" type="text" name="firstName"  id="firstName">
+								<i class="fa fa-user" style="font-style: inherit;"> First Name</i>
+							</div>
+						</div> 
+						<div class="col-md-4 col-sm-6">
+							<div class="single-input">
+								<input class="input-box" type="text" name="laststName"  id="lastName">
+								<i class="fa fa-user"> Last Name</i>
+							</div>
+						</div> 
+						<div class="col-md-4 col-sm-6">
+							<div class="single-input">
+								<input class="input-box" type="text" name="contactNo"  id="contactNo" onkeyup ="validateContact();">
+								<i class="fa fa-phone"> Contact No.</i>
+								
+							</div>
+
+							<div id="invalidNumber" style="color: red"></div>
+						</div> 
+						<div class="col-md-4 col-sm-6">
+							<div class="single-input">
+								<input class="input-box" type="email" name="email"  id="email">
+								<i class="fa fa-envelope"> Email</i>
+							</div>
+						</div>
+						<div class="col-md-4 col-sm-6">
+							<div class="single-input">
+								<input class="input-box" type="password" name="password" placeholder="Password"  id="password" onkeyup ="validatePassword();"/>
+								<i class="fa fa-key "></i>
+							</div>
+						</div> 
+						<div class="col-md-4 col-sm-6">
+							<div class="single-input">
+								<input class="input-box" type="password" name="password"  id="confirmPassword"  placeholder="Confirm password" onkeyup ="validatePassword();"/ >
+								<i class="fa fa-key"></i>
+							</div>
+							<div id="invalidPassword" style="color:red"></div>
+						</div> 
+
+
+						<!-- ======================================================================================== -->
+						
+						<div class="reservation-btn">
+							<button type="submit" class="button">Save</button>
+						</div>
+					</form>
+				</div><!-- reservation form -->
+			</div>
+		</div><!-- container -->
+	</section><!-- reservation section end-->
+
+
+
+	<!-- Footer -->
+	<footer id="footer">
+
+	</footer><!-- Footer End-->
+
+	<script src="assets/js/jquery-2.2.3.min.js"></script>
+	<script src="assets/js/bootstrap.min.js"></script>
+	<script src="assets/js/swiper.min.js"></script>
+	<script src="assets/js/isotope.pkgd.min.js"></script>
+	<script type="text/javascript" src="http://maps.google.com/maps/api/js?sensor=true"></script>
+	<script src="assets/js/jquery.gmap.min.js"></script>
+	<script src="assets/js/jquery.syotimer.js"></script>
+	<script src="assets/js/lightbox.js"></script>
+	<script src="assets/js/jquery.vide.js"></script>
+	<script src="assets/js/plugins.js"></script>
+	<script src="assets/js/functions.js"></script>
+	<script type="text/javascript" src="assets/js/header.js"></script>
+	<script type="text/javascript">
+		document.getElementById("firstName").value = sessionStorage.getItem("firstName");
+		document.getElementById("email").value = sessionStorage.getItem("email");                    
+        document.getElementById("lastName").value = sessionStorage.getItem("lastName");
+        document.getElementById("contactNo").value = sessionStorage.getItem("contactNo");
+	</script>
+	        <script type="text/Javascript">
+            function validateContact(){
+                var phoneno = /^\d{10}$/;
+                if($("#contactNo").val().match(phoneno)){
+                    $("#invalidNumber").html("");
+                    return true;
+                }else{
+                    $("#invalidNumber").html("Invalid Phone Number");
+                    return false;
+                }
+                }
+
+            function validatePassword(){
+                if($("#password").val() ==  $("#confirmPassword").val()){
+                    $("#invalidPassword").html("");
+                    return true;
+                }
+                else{
+                    $("#invalidPassword").html("Passwords donot match");
+                    return false;
+                }
+            }
+
+                $("#editForm").submit(function(event)
+                {
+                    event.preventDefault();
+                    var validNumber = validateContact();
+                    var validPassword = validatePassword();
+                    if(validNumber && validPassword){
+                    var form = this;
+                    var formData = {}
+                    $.each(this, function(i, v){
+                    var input = $(v);
+                    formData[input.attr("id")] = input.val();
+                    });
+                    $.ajax({
+                    type: 'POST',
+                    datatype:'json',
+                    contentType: 'application/json',
+                    url: "http://localhost:8090/mocktail-store/api/v1/account/editProfile",
+                    data: JSON.stringify(formData),
+
+                success: function(result)
+                { 	
+                    sessionStorage.setItem("email",JSON.stringify(result.email));
+                    sessionStorage.setItem("firstName",JSON.stringify(result.firstName));
+                    sessionStorage.setItem("lastName",JSON.stringify(result.lastName));
+                    sessionStorage.setItem("contactNo",JSON.stringify(result.contactNo));
+                    sessionStorage.setItem("id",result.id);
+                    window.location.replace('/Myapp/IceyMicey/index.html');
+                },
+                error: function (err) {
+                        
+                        console.log(err.responseJSON.message);
+                        document.getElementById("signup_failed").innerHTML = err.responseJSON.message;
+                    }
+                });
+                }
+                return false;
+            })
+
+
+
+
+
+
+        </script>
+</body>
+
+<!-- Mirrored from demos.codexcoder.com/labartisan/html/Tomato-HTML/reservation.html by HTTrack Website Copier/3.x [XR&CO'2014], Mon, 12 Nov 2018 11:43:41 GMT -->
+</html>

@@ -82,6 +82,8 @@
 	<script src="assets/js/jquery.vide.js"></script>
 	<script src="assets/js/plugins.js"></script>
 	<script src="assets/js/functions.js"></script>
+	<script type="text/javascript" src="assets/js/header.js"></script>
+	
 	<script type="text/javascript">
 		var BlogDetail = JSON.parse(localStorage.getItem("BlogDetail"));
 		document.getElementById("blog-title").innerHTML = BlogDetail.title;
@@ -89,25 +91,6 @@
 		document.getElementById("blog-title2").innerHTML = BlogDetail.title;
 		document.getElementById("blog-author").innerHTML = BlogDetail.author;
 		document.getElementById("blog-content").innerHTML = BlogDetail.content;
-		$(document).ready(function(){
-		  $("#footer").load("footer.html");
-		  $( "#header" ).load( "header.html" ,function(){
-		  			var email=sessionStorage.getItem("email");
-			var replace = $('#replace');
-			if(email != null){
-				console.log('logOut-btn');
-				replace.html('<a href="signup-login.html">Log Out');
-			}
-			else if(email == null){
-				console.log('signup-login-btn');
-				replace.html('<a href="signup-login.html">Log in');										       					    
-			}
-		  });
-		});
-		$("#logOut-btn").click(function(){
-			sessionStorage.clear();
-			window.location.replace('/Myapp/IceyMicey/index.html');
-		});
 	</script>
 </body>
 

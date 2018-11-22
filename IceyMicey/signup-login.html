@@ -153,7 +153,12 @@
                         { 
 
                                 console.log(JSON.stringify(result));
-                                sessionStorage.setItem("email",JSON.stringify(result.email));
+                                sessionStorage.setItem("email",result.email);
+                                sessionStorage.setItem("email",result.email);
+                                sessionStorage.setItem("firstName",result.firstName);
+                                sessionStorage.setItem("lastName",result.lastName);
+                                sessionStorage.setItem("contactNo",result.contactNo);
+                                sessionStorage.setItem("id",result.id);
                                 window.location.replace('/Myapp/IceyMicey/index.html');
                             
                         },
@@ -187,11 +192,15 @@
                 success: function(result)
                 { 
                     sessionStorage.setItem("email",JSON.stringify(result.email));
+                    sessionStorage.setItem("firstName",JSON.stringify(result.firstName));
+                    sessionStorage.setItem("lastName",JSON.stringify(result.lastName));
+                    sessionStorage.setItem("contactNo",JSON.stringify(result.contactNo));
+                    sessionStorage.setItem("id",result.id);
                     window.location.replace('/Myapp/IceyMicey/index.html');
                 },
                 error: function (err) {
                         
-                            console.log(err.responseJSON.message);
+                        console.log(err.responseJSON.message);
                         document.getElementById("signup_failed").innerHTML = err.responseJSON.message;
                     }
                 });
